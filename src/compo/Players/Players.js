@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import Player from "../Player/Player";
 import "./Players.css";
 
-const Players = ({setPlayer}) => {
+const Players = ({cart, setCart}) => {
   const [players, setPlayers] = useState([]);
   const [search, setSearch] = useState("");
-//   const [cart, setCart] = useState([]);
   useEffect(() => {
     fetch(
       `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${search}`
@@ -13,11 +12,10 @@ const Players = ({setPlayer}) => {
       .then((res) => res.json())
       .then((data) => setPlayers(data?.player));
   }, [search]);
-  const handleCart =(id)=>{
-    const selectedPlayer = players.find((player)=>player.idPlayer === id);
-    // setCart(selectedPlayer);
-    setPlayer(selectedPlayer)
-}
+  // const handleCart =(id)=>{
+    // const selectedPlayer = players.find((player)=>player.idPlayer === id);
+    // setPlayer(selectedPlayer)
+// }
   return (
     <div>
       <div>
@@ -31,7 +29,7 @@ const Players = ({setPlayer}) => {
       </div>
       <div className="player-container">
         {players.map((player) => (
-          <Player playerInfo={player} handleCart={handleCart} key={player.idPlayer}></Player>
+          <Player playerInfo={player} key={player.idPlayer} cart={cart} setCart = {setCart}></Player>
         ))}
       </div>
     </div>
